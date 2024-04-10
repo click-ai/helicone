@@ -130,6 +130,12 @@ export const providers: {
     provider: "MISTRAL",
     costs: mistralCosts,
   },
+  {
+    // https://mockgpt.wiremockapi.cloud/v1
+    pattern: /^https:\/\/mockgpt\.wiremockapi\.cloud/,
+    provider: "MOCKGPT",
+    costs: openaiCosts,
+  }
 ];
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
