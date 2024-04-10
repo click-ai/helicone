@@ -13,4 +13,4 @@ RUN yarn
 
 RUN rm -rf ./.wrangler
 
-CMD wrangler dev --local --var WORKER_TYPE:${WORKER_TYPE} --ip 0.0.0.0 --port ${WORKER_PORT}
+CMD env > .dev.vars && echo "n" | wrangler dev --local --var WORKER_TYPE:${WORKER_TYPE} --ip 0.0.0.0 --port ${WORKER_PORT}
