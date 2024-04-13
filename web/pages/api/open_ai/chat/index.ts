@@ -31,22 +31,17 @@ export default async function handler(
     return;
   }
 
-  const openai = process.env.QA_OPENAI_API_KEY
-    ? new OpenAI({
-        apiKey: process.env.QA_OPENAI_API_KEY,
-        baseURL: "https://cache-openai.useclickai.com/v1",
-      })
-    : new OpenAI({
-        apiKey: process.env.OPENAI_API_KEY,
-        baseURL: "https://oai.hconeai.com/v1",
-        defaultHeaders: {
-          "OpenAI-Organization": "",
-          "Helicone-Property-Tag": "experiment",
-          "Helicone-Auth": `Bearer ${process.env.TEST_HELICONE_API_KEY}`,
-          user: user.data.user?.id || "",
-          "Helicone-Property-RequestId": requestId,
-        },
-      });
+  const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+    baseURL: "https://oai.hconeai.com/v1",
+    defaultHeaders: {
+      "OpenAI-Organization": "",
+      "Helicone-Property-Tag": "experiment",
+      "Helicone-Auth": `Bearer ${process.env.TEST_HELICONE_API_KEY}`,
+      user: user.data.user?.id || "",
+      "Helicone-Property-RequestId": requestId,
+    },
+  });
 
   if (!user.data || !user.data.user) {
     res.status(401).json({ error: "Unauthorized", data: null });

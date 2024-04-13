@@ -130,12 +130,6 @@ export const providers: {
     provider: "MISTRAL",
     costs: mistralCosts,
   },
-  {
-    // https://mockgpt.wiremockapi.cloud/v1
-    pattern: /^https:\/\/cache-openai\.useclickai\.com/,
-    provider: "CLICKAI",
-    costs: openaiCosts,
-  },
 ];
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

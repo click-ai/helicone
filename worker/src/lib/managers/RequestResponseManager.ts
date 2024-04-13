@@ -70,11 +70,7 @@ export class RequestResponseManager {
           assetId
         );
       } else {
-        const response = await fetch(imageUrl, {
-          headers: {
-            "User-Agent": "Helicone-Worker (https://helicone.com)",
-          },
-        });
+        const response = await fetch(imageUrl);
         if (!response.ok) {
           throw new Error(`Failed to download image: ${response.statusText}`);
         }
