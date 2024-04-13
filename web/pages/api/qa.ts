@@ -3,6 +3,7 @@ import { supabaseServer } from "../../lib/supabaseServer";
 import * as crypto from "crypto";
 import OpenAI from "openai";
 import { generateApiKey } from "generate-api-key";
+import { Faker, en } from "@faker-js/faker";
 
 const encoder = new TextEncoder();
 
@@ -59,8 +60,7 @@ export default async function handler(
     .single();
 
   const apiKey = await generateAPIKey();
-  console.log(apiKey);
-  const apiResp = await supabaseServer.from("helicone_api_keys").insert({
+  await supabaseServer.from("helicone_api_keys").insert({
     api_key_hash: await hashAuth(apiKey),
     user_id: user.data.user!.id,
     api_key_name: "test key",
@@ -75,6 +75,19 @@ export default async function handler(
       "Helicone-OpenAI-API-Base": "https://cache-openai.useclickai.com/v1",
     },
   });
+  const faker = new Faker({ locale: [en] });
+  faker.seed(123);
+
+  const promises = Array.from({ length: 10 }).map(() =>
+    openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "user", content: faker.lorem.paragraph({ min: 1, max: 3 }) },
+      ],
+    })
+  );
+
+  await Promise.all(promises);
 
   await openai.chat.completions
     .create({
@@ -84,7 +97,7 @@ export default async function handler(
         {
           role: "user",
           content: [
-            { type: "text", text: "What'''s in this image?" },
+            { type: "text", text: "What's in this image?" },
             {
               type: "image_url",
               image_url: {
@@ -101,10 +114,6 @@ export default async function handler(
     .catch((err) => {
       console.error(err);
     });
-  await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: "Hello world. repy just OK" }],
-  });
 
   const { data, error } = await supabaseServer.auth.admin.generateLink({
     type: "magiclink",

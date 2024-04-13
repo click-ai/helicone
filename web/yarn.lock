@@ -1462,6 +1462,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@faker-js/faker@npm:^8.4.1":
+  version: 8.4.1
+  resolution: "@faker-js/faker@npm:8.4.1"
+  checksum: 4f2aecddcfdc2cc8b50b2d15d1e37302a7c7a5bbd184ae910a9d271bc11248533ca74dcdd4a9ccbe20410553e7af0f6a4d334c5b955635e09a32ddf4a64942d4
+  languageName: node
+  linkType: hard
+
 "@fastify/busboy@npm:^2.0.0":
   version: 2.1.1
   resolution: "@fastify/busboy@npm:2.1.1"
@@ -7402,6 +7409,7 @@ __metadata:
     "@clickhouse/client": "npm:^0.0.14"
     "@emotion/react": "npm:^11.10.5"
     "@emotion/styled": "npm:^11.10.5"
+    "@faker-js/faker": "npm:^8.4.1"
     "@graphql-eslint/eslint-plugin": "npm:^3.17.0"
     "@graphql-tools/schema": "npm:^9.0.17"
     "@headlessui/react": "npm:^1.7.18"
