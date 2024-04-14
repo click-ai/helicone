@@ -78,12 +78,15 @@ export default async function handler(
   const faker = new Faker({ locale: [en] });
   faker.seed(123);
 
+  const userIds = Array.from({ length: 5 }).map(() => faker.string.uuid());
+
   const promises = Array.from({ length: 10 }).map(() =>
     openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
         { role: "user", content: faker.lorem.paragraph({ min: 1, max: 3 }) },
       ],
+      user: faker.helpers.arrayElement(userIds),
     })
   );
 
@@ -107,6 +110,7 @@ export default async function handler(
           ],
         },
       ],
+      user: faker.helpers.arrayElement(userIds),
     })
     .then((res) => {
       console.log(res.choices[0].message);
